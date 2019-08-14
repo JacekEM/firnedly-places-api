@@ -1,0 +1,119 @@
+swagger: "2.0"
+info:
+  title: Masalo - Order
+  description: Not even sure what I am doing
+  version: 1.0.0
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+tags:
+- name: orders
+  description: actions related to order composition
+
+paths:
+  /orders:
+    get:
+      tags:
+      - orders
+      summary: returns a list of orders
+      description: gets lists of orders
+      operationId: orders.get_all_orders
+      responses:
+        200:
+          description: Successful read orders list operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Order'
+    post:
+      tags:
+      - orders
+      summary: Add a new order
+      description: Add a new order based on users' input
+      operationId: orders.create_order
+      parameters:
+        - name: order
+          in: body
+          description: palceholder
+          required: True
+          schema:
+            $ref: '#/definitions/Order'
+      responses:
+        201:
+          description: Successfully added a restaurant
+
+
+  /orders/{lname}:
+    get:
+      tags:
+        - orders
+      summary: Return a specific order
+      description: returns order object
+      operationId: orders.get_order
+      parameters:
+        - name: lname
+          in: path
+          description: order name to be retrieved
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read order
+          schema:
+            $ref: '#/definitions/Order'
+        404:
+          description: Order does not exist
+
+    put:
+      tags:
+        - orders
+      operationId: orders.update_order
+      summary: Update an order
+      description: Update an order
+      parameters:
+        - name: lname
+          in: path
+          description: Order identifier
+          type: string
+          required: True
+        - name: order
+          in: body
+          schema:
+            type: object
+            properties:
+              fname:
+                type: string
+              lname:
+                type: string
+      responses:
+        200:
+          description: Successfully updated order
+
+    delete:
+      tags:
+        - orders
+      operationId: orders.delete_order
+      summary: Delete an order
+      description: Delete an order
+      parameters:
+        - name: lname
+          in: path
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully deleted an order
+
+definitions:
+  Order:
+    type: object
+    properties:
+      fname:
+        type: string
+      lname:
+        type: string
+      timestamp:
+        type: string

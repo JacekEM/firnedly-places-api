@@ -1,0 +1,161 @@
+openapi: 3.0.1
+info:
+  title: Friendly places
+  description: Not even sure what I am doing
+  version: 1.0.0
+servers:
+- url: /api
+tags:
+- name: restaurants
+  description: actions related to restaurants api
+- name: orders
+  description: actions related to orders api
+paths:
+  /orders:
+    post:
+      tags:
+        - orderds
+      summary: aa
+      description: bb
+      operationId: orders.create_order
+      requestBody:
+        description: palceholder
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+        required: true
+      responses:
+        201:
+          description: Successfully added an order
+          content: {}
+
+
+  /restaurants:
+    get:
+      tags:
+      - restaurants
+      summary: returns a list of restaurants
+      description: gets lists of restaurants
+      operationId: restaurants.get_all_restaurants
+      responses:
+        200:
+          description: Successful read restaurants list operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Restaurant'
+    post:
+      tags:
+      - restaurants
+      summary: Add a new restaurant
+      description: Add a new restaurant based on users' input
+      operationId: restaurants.create_restaurant
+      requestBody:
+        description: palceholder
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Restaurant'
+            example:
+              name: jacek
+              address: DG 11
+              phone: 1111111
+              web: www.google.com
+        required: true
+      responses:
+        201:
+          description: Successfully created restaurant
+          content: {}
+
+  /restaurants/{name}:
+    get:
+      tags:
+      - restaurants
+      summary: Return a specific restaurant
+      description: returns restaurant object
+      operationId: restaurants.get_restaurant
+      parameters:
+      - name: name
+        in: path
+        description: Restaurant name to be retrieved
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successfully read restaurant
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+        404:
+          description: Restaurant does not exist
+          content: {}
+    put:
+      tags:
+      - restaurants
+      summary: Update an restaurant
+      description: Update an restaurant
+      operationId: restaurants.update_restaurant
+      parameters:
+      - name: name
+        in: path
+        description: Restaurants identifier
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Restaurant'
+        required: false
+      responses:
+        200:
+          description: Successfully updated restaurant
+          content: {}
+        404:
+          description: Restaurant does not exist
+          content: {}
+    delete:
+      tags:
+      - restaurants
+      summary: Delete a restaurant
+      description: Delete a restaurant
+      operationId: restaurants.delete_restaurant
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successfully deleted a restaurant
+          content: {}
+        404:
+          description: Restaurant does not exist
+          content: {}
+
+components:
+  schemas:
+    Restaurant:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: false
+        address:
+          type: string
+          nullable: true
+        phone:
+          type: integer
+          nullable: false
+        web:
+          type: string
+          nullable: true
