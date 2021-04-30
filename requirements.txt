@@ -21,5 +21,5 @@ six==1.12.0
 SQLAlchemy==1.3.6
 swagger-ui-bundle==0.0.5
 tornado==6.0.3
-urllib3==1.25.3
+urllib3==1.25.8
 Werkzeug==0.15.5
